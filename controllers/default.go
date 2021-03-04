@@ -11,4 +11,6 @@ type MainController struct {
 func (c *MainController) Get() {
 	c.Layout = "layout.html"
 	c.TplName = "index.html"
+	c.LayoutSections = make(map[string]string)
+	c.LayoutSections["ScriptContent"] = "index-script.html"
 }

@@ -4,7 +4,7 @@
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=0, minimal-ui">
-    <title>Drixo - Responsive Booststrap 4 Admin & Dashboard</title>
+    <title>GoDBMonitor - 数据监控管理平台</title>
     <meta content="Admin Dashboard" name="description" />
     <meta content="ThemeDesign" name="author" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -50,9 +50,9 @@
                         </a>
                     </li>
                     <li class="has_sub">
-                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-cogs"></i> <span> 系统设置 </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
+                        <a href="javascript:void(0);" class="waves-effect"><i class="fa fa-cogs"></i> <span> 通用设置 </span> <span class="menu-arrow float-right"><i class="mdi mdi-chevron-right"></i></span></a>
                         <ul class="list-unstyled">
-                            <li><a href="/common/datasource">数据源</a></li>
+                            <li><a href="/common/datasourcelist">数据源</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -260,11 +260,8 @@
 <script src="/static/plugins/peity/jquery.peity.min.js"></script>
 
 <script src="/static/plugins/raphael/raphael-min.js"></script>
-
-<!-- dashboard -->
-<script src="/static/pages/dashboard.js"></script>
-
 <!-- App js -->
 <script src="/static/js/app.js"></script>
+{{.ScriptContent}}
 </body>
 </html>

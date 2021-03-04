@@ -6,6 +6,8 @@ import (
 	beego "github.com/beego/beego/v2/server/web"
 	"github.com/beego/beego/v2/server/web/session"
 	"godbmonitor/models"
+	"crypto/md5"
+	"encoding/hex"
 )
 
 var globalSessions *session.Manager
@@ -39,6 +41,10 @@ func (c *LoginController) Login() {
 	fmt.Println("userName" + userName)
 	fmt.Println("password" + password)
 
+	m := md5.New()
+	m.Write([]byte (password))
+	md5Password := hex.EncodeToString(m.Sum(nil))
+
 	o := orm.NewOrm()
 	var user models.User
 	err := o.QueryTable(user).Filter("UserName", userName).One(&user)
@@ -46,7 +52,7 @@ func (c *LoginController) Login() {
 	if err == orm.ErrNoRows {
 		fmt.Println("无法找到指定用户")
 		c.Redirect("/error/404", 302)
-	} else if user.Password != password {
+	} else if user.Password != md5Password {
 		fmt.Println("用户名密码错误")
 		c.Redirect("/error/500", 302)
 	} else {

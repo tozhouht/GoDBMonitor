@@ -1,0 +1,55 @@
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-sm-12">
+            <div class="float-right page-breadcrumb">
+                <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="#">通用设置</a></li>
+                    <li class="breadcrumb-item active">数据源管理</li>
+                </ol>
+            </div>
+            <h5 class="page-title">数据源管理</h5>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="card">
+                <div class="card-body">
+                    <div class="table-responsive">
+                        <table class="table table-striped mb-0">
+                            <thead>
+                            <tr>
+                                <th>#</th>
+                                <th>名称</th>
+                                <th>数据库类型</th>
+                                <th>IP</th>
+                                <th>数据库用户</th>
+                                <th>数据库端口</th>
+                                <th style="width:180px;">操作</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {{range $index, $dataSource := .DataSourceList}}
+                            <tr>
+                                <td>{{AddOne $index}}</td>
+                                <td>{{$dataSource.Name}}</td>
+                                <td>{{$dataSource.DbType}}</td>
+                                <td>{{$dataSource.Ip}}</td>
+                                <td>{{$dataSource.DbUser}}</td>
+                                <td>{{$dataSource.DbPort}}</td>
+                                <td>
+                                    <button type="button" class="btn btn-info"><i class="fa fa-edit"></i> 编辑</button>
+                                    <button type="button" class="btn btn-danger"><i class="fa fa-remove"></i> 删除</button>
+                                </td>
+                            </tr>
+                            {{end}}
+                            </tbody>
+                        </table>
+                        <div class="mt-5">
+                            <a class="btn btn-primary" href="/common/adddatasource"><i class="fa fa-plus"></i> 添加</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

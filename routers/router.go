@@ -21,7 +21,9 @@ func init() {
 
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/login", &controllers.LoginController{})
+	beego.Router("/common", &controllers.CommonController{})
 
 	beego.AutoRouter(&controllers.MainController{})
 	beego.AutoRouter(&controllers.LoginController{})
+	beego.AutoRouter(&controllers.CommonController{})
 }
