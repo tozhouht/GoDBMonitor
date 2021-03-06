@@ -87,3 +87,67 @@ func (c *CommonController) SaveDataSource(){
 
 	c.Redirect("/common/datasourcelist", 302)
 }
+
+func (c *CommonController) EditDataSource(){
+	id, err := c.GetInt("id")
+	if err != nil{
+		fmt.Println("获取参数失败")
+		return
+	}
+
+	o := orm.NewOrm()
+	databaseSource := models.DatabaseSource{Id : id}
+	err2 := o.Read(&databaseSource)
+	if err2 != nil {
+		fmt.Println("获取数据源失败")
+		return
+	}
+
+	c.Data["DatabaseSource"] = databaseSource
+
+	c.Layout = "layout.html"
+	c.TplName = "common/editDataSource.html"
+	c.LayoutSections = make(map[string]string)
+	c.LayoutSections["ScriptContent"] = "common/editDataSource-script.html"
+}
+
+func (c *CommonController) UpdateDataSource(){
+	id, err := c.GetInt("id")
+	if err != nil{
+		fmt.Println("获取参数失败")
+		return
+	}
+	name := c.GetString("name")
+	dbType, err1 := c.GetInt("dbType")
+	if err1 != nil {
+		fmt.Print("数据库类型不能为空")
+	}
+	ip := c.GetString("ip")
+	dbUserName := c.GetString("dbUserName")
+	dbPassword := c.GetString("dbPassword")
+	dbPort, err2 := c.GetInt("dbPort")
+	if err2 != nil {
+		fmt.Print("数据库端口不能为空")
+	}
+	o := orm.NewOrm()
+	databaseSource := models.DatabaseSource{Id : id}
+	err3 := o.Read(&databaseSource)
+	if err3 != nil {
+		fmt.Println("获取数据源失败")
+		return
+	}
+	databaseSource.DbType = dbType
+	databaseSource.Ip = ip
+	databaseSource.Name = name
+	databaseSource.DbUser = dbUserName
+	databaseSource.DbPassword = dbPassword
+	databaseSource.DbPort = dbPort
+
+	_, err4 := o.Update(&databaseSource)
+
+	if err4 != nil {
+		fmt.Println(err3)
+	}
+
+	c.Redirect("/common/datasourcelist", 302)
+}
