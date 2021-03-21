@@ -12,14 +12,19 @@ type CommonController struct {
 	beego.Controller
 }
 
-func (c *CommonController) Index(){
+type JSONStruct struct {
+	result  bool
+	message string
+}
+
+func (c *CommonController) Index() {
 	c.Layout = "layout.html"
 	c.TplName = "common/dataSourceList.html"
 }
 
-func (c *CommonController) DataSourceList(){
+func (c *CommonController) DataSourceList() {
 	count, error := models.DatabaseSourceCount()
-	if error != nil{
+	if error != nil {
 		count = 1
 	}
 
@@ -33,7 +38,7 @@ func (c *CommonController) DataSourceList(){
 
 	//获取分页数据
 	dataSourceList, error2 := models.DatabaseSourceList(pageSize, pageNo)
-	if error2 != nil{
+	if error2 != nil {
 
 	}
 
@@ -48,14 +53,14 @@ func (c *CommonController) DataSourceList(){
 	c.LayoutSections["ScriptContent"] = "common/dataSourceList-script.html"
 }
 
-func (c *CommonController) AddDataSource(){
+func (c *CommonController) AddDataSource() {
 	c.Layout = "layout.html"
 	c.TplName = "common/addDataSource.html"
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["ScriptContent"] = "common/addDataSource-script.html"
 }
 
-func (c *CommonController) SaveDataSource(){
+func (c *CommonController) SaveDataSource() {
 	name := c.GetString("name")
 	dbType, err := c.GetInt("dbType")
 	if err != nil {
@@ -79,24 +84,24 @@ func (c *CommonController) SaveDataSource(){
 	databaseSource.DbPort = dbPort
 
 	id, err3 := o.Insert(&databaseSource)
-	if err3!= nil {
+	if err3 != nil {
 		fmt.Println(err3)
-	}else {
+	} else {
 		fmt.Println(id)
 	}
 
 	c.Redirect("/common/datasourcelist", 302)
 }
 
-func (c *CommonController) EditDataSource(){
+func (c *CommonController) EditDataSource() {
 	id, err := c.GetInt("id")
-	if err != nil{
+	if err != nil {
 		fmt.Println("获取参数失败")
 		return
 	}
 
 	o := orm.NewOrm()
-	databaseSource := models.DatabaseSource{Id : id}
+	databaseSource := models.DatabaseSource{Id: id}
 	err2 := o.Read(&databaseSource)
 	if err2 != nil {
 		fmt.Println("获取数据源失败")
@@ -111,9 +116,9 @@ func (c *CommonController) EditDataSource(){
 	c.LayoutSections["ScriptContent"] = "common/editDataSource-script.html"
 }
 
-func (c *CommonController) UpdateDataSource(){
+func (c *CommonController) UpdateDataSource() {
 	id, err := c.GetInt("id")
-	if err != nil{
+	if err != nil {
 		fmt.Println("获取参数失败")
 		return
 	}
@@ -130,7 +135,7 @@ func (c *CommonController) UpdateDataSource(){
 		fmt.Print("数据库端口不能为空")
 	}
 	o := orm.NewOrm()
-	databaseSource := models.DatabaseSource{Id : id}
+	databaseSource := models.DatabaseSource{Id: id}
 	err3 := o.Read(&databaseSource)
 	if err3 != nil {
 		fmt.Println("获取数据源失败")
@@ -150,4 +155,30 @@ func (c *CommonController) UpdateDataSource(){
 	}
 
 	c.Redirect("/common/datasourcelist", 302)
+}
+
+func (c *CommonController) DeleteDataSource() {
+	id, err := c.GetInt("id")
+	if err != nil {
+		fmt.Println("获取参数失败")
+		return
+	}
+
+	o := orm.NewOrm()
+	if _, err := o.Delete(&models.DatabaseSource{Id: id}); err == nil {
+		c.Data["json"] = map[string]interface{}{"result": true, "message": ""}
+
+		c.ServeJSON()
+	} else {
+		c.Data["json"] = map[string]interface{}{"result": false, "message": "删除错误，" + err.Error()}
+
+		c.ServeJSON()
+	}
+}
+
+func (c *CommonController) MonitorTargetList() {
+	c.Layout = "layout.html"
+	c.TplName = "common/monitorTargetList.html"
+	c.LayoutSections = make(map[string]string)
+	c.LayoutSections["ScriptContent"] = "common/monitorTargetList-script.html"
 }

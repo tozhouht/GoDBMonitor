@@ -38,7 +38,7 @@
                                 <td>{{$dataSource.DbPort}}</td>
                                 <td>
                                     <a class="btn btn-info" href="/common/editdatasource?id={{$dataSource.Id}}"><i class="fa fa-edit"></i> 编辑</a>
-                                    <button type="button" class="btn btn-danger"><i class="fa fa-remove"></i> 删除</button>
+                                    <a href="javascript:deleteDataSource({{$dataSource.Id}})" class="btn btn-danger"><i class="fa fa-remove"></i> 删除</a>
                                 </td>
                             </tr>
                             {{end}}

@@ -2,14 +2,19 @@ package main
 
 import (
 	"github.com/beego/beego/v2/client/orm"
-	_ "godbmonitor/routers"
 	beego "github.com/beego/beego/v2/server/web"
 	_ "github.com/go-sql-driver/mysql"
+	_ "godbmonitor/routers"
 )
 
-func AddOne(index int)(index1 int){
+func AddOne(index int) (index1 int) {
 	index1 = index + 1
 	return
+}
+
+type JSONStruct struct {
+	result  bool
+	message string
 }
 
 func main() {
@@ -27,4 +32,3 @@ func main() {
 
 	beego.Run()
 }
-

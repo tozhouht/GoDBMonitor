@@ -1,3 +1,29 @@
+<script src="/static/plugins/alertify/js/alertify.js"></script>
 <script language="javascript">
+<!--
+    function deleteDataSource(id){
+        alertify.confirm("你确认要删除此条记录吗？", function (ev) {
+            ev.preventDefault();
 
+            $.post(
+                "/common/deletedatasource",
+                {
+                    id : id
+                },
+                function(data){
+                    if(data.result){
+                        alertify.alert("删除完成！", function (ev) {
+                            ev.preventDefault();
+                            document.location.reload();
+                        });
+                    }else{
+                        alertify.alert("删除出错，" + data.message);
+                    }
+                },'json'
+            )
+        }, function(ev) {
+            ev.preventDefault();
+        });
+    }
+//-->
 </script>
