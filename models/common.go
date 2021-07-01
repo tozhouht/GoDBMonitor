@@ -10,7 +10,7 @@ func init() {
 }
 
 type DatabaseSource struct {
-	Id         int
+    Id         int
 	Name       string `orm:"size(40)"`
 	DbType     int    `orm:"type(smallint)"`
 	Ip         string `orm:"size(20)"`

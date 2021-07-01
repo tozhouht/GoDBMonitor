@@ -182,3 +182,14 @@ func (c *CommonController) MonitorTargetList() {
 	c.LayoutSections = make(map[string]string)
 	c.LayoutSections["ScriptContent"] = "common/monitorTargetList-script.html"
 }
+
+func (c *CommonController) AddMonitorTarget() {
+	c.Layout = "layout.html"
+	c.TplName = "common/addMonitorTarget.html"
+	c.LayoutSections = make(map[string]string)
+	c.LayoutSections["ScriptContent"] = "common/addMonitorTarget-script.html"
+}
+
+func (c *CommonController) SaveMonitorTarget(){
+	
+}

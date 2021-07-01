@@ -5,6 +5,7 @@ import (
 	beego "github.com/beego/beego/v2/server/web"
 	_ "github.com/go-sql-driver/mysql"
 	_ "godbmonitor/routers"
+	"godbmonitor/utils"
 )
 
 func AddOne(index int) (index1 int) {
@@ -29,6 +30,7 @@ func main() {
 	orm.Debug = true
 
 	beego.AddFuncMap("AddOne", AddOne)
+	beego.AddFuncMap("GetDBType", utils.GetDBType)
 
 	beego.Run()
 }

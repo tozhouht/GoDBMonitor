@@ -17,7 +17,7 @@ var FilterUser = func(ctx *context.Context) {
 }
 
 func init() {
-	beego.InsertFilter("/*", beego.BeforeRouter, FilterUser)
+	//beego.InsertFilter("/*", beego.BeforeRouter, FilterUser)
 
 	beego.Router("/", &controllers.MainController{})
 	beego.Router("/login", &controllers.LoginController{})

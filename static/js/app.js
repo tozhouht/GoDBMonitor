@@ -106,9 +106,9 @@
         },
         MainApp.prototype.Preloader = function () {
             $(window).on('load', function() {
-                $('#status').fadeOut();
-                $('#preloader').delay(350).fadeOut('slow');
-                $('body').delay(350).css({
+                //$('#status').fadeOut();
+                $('#preloader').delay(0).fadeOut('slow');
+                $('body').delay(0).css({
                     'overflow': 'visible'
                 });
             });
@@ -120,7 +120,7 @@
             this.initComponents();
             this.initMenu();
             this.activateMenuItem();
-            this.Preloader();
+            //this.Preloader();
         },
         //init
         $.MainApp = new MainApp, $.MainApp.Constructor = MainApp
